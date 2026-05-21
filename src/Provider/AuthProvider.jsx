@@ -19,6 +19,7 @@ const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [singleUserdbInfo, setSingleUserdbInfo] = useState(null);
   const [allIssues, setAllIssues] = useState([]);
+  const [staffs, setStaffs] = useState(null);
 
   // register
   const register = (email, password) => {
@@ -74,12 +75,21 @@ const AuthProvider = ({ children }) => {
     return res.json();
   };
 
+  // get staffs
+  const getStaffs = () => {
+    fetch("http://localhost:3000/getStaffs")
+      .then((res) => res.json())
+      .then((data) => setStaffs(data))
+      .catch((err) => console.log(err.message));
+  };
   // authstatechange
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUserInfo(currentUser);
       // allIssuesGetDb
       allIssuesGetDbMethod();
+      //  get all staffs
+      getStaffs();
 
       //  jodi current user er modhe email thake tahole singel data user data get korbe na hole null set korbe
       if (currentUser?.email) {
@@ -123,6 +133,9 @@ const AuthProvider = ({ children }) => {
     allIssues,
     allIssuesGetDbMethod,
     setAllIssues,
+    staffs,
+    setStaffs,
+    getStaffs,
   };
   return <AuthContext value={authData}>{children}</AuthContext>;
 };

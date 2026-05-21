@@ -1,15 +1,14 @@
-import { useEffect, useState } from "react";
+import { use, useEffect } from "react";
 import { Mail, ShieldCheck, Users } from "lucide-react";
 import { Link } from "react-router";
 import Swal from "sweetalert2";
+import { AuthContext } from "../../Provider/AuthContext";
 
 const ManageStaff = () => {
-  const [staffs, setStaffs] = useState(null);
+  const { staffs, setStaffs, getStaffs } = use(AuthContext);
+
   useEffect(() => {
-    fetch("http://localhost:3000/getStaffs")
-      .then((res) => res.json())
-      .then((data) => setStaffs(data))
-      .catch((err) => console.log(err.message));
+    getStaffs();
   }, []);
 
   // delete staff database and firebase

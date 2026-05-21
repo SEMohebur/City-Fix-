@@ -17,6 +17,7 @@ import UpdateIssue from "../Pages/UpdateIssue";
 import ManageIssue from "../Pages/Admin/ManageIssue";
 import ManageStaff from "../Pages/Admin/ManageStaff";
 import CreateStaff from "../Pages/Admin/CreateStaff";
+import DashBoard_Admin from "../Pages/Admin/DashBoard_Admin";
 
 export const router = createBrowserRouter([
   {
@@ -85,6 +86,15 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <CreateStaff></CreateStaff>
+          </PrivateRoute>
+        ),
+      },
+
+      {
+        path: "/dashboard_admin",
+        element: (
+          <PrivateRoute>
+            <DashBoard_Admin></DashBoard_Admin>
           </PrivateRoute>
         ),
       },

@@ -203,6 +203,9 @@ const Navbar = () => {
                   <a>Profile</a>
                 </li>
                 <li>
+                  <Link to={"/dashboard_admin"}>Dashboard</Link>
+                </li>
+                <li>
                   <button onClick={handleLogout}>Log out</button>
                 </li>
               </>
