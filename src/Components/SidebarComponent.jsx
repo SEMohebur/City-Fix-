@@ -128,7 +128,7 @@ const SidebarComponent = () => {
             <>
               <li>
                 <Link
-                  to="/manageIssues"
+                  to="/issueManagement"
                   className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                   data-tip="Manage Issues"
                 >
@@ -147,13 +147,15 @@ const SidebarComponent = () => {
                     <path d="M16.5 3.5a2.121 2.121 0 1 1 3 3L7 19l-4 1 1-4 12.5-12.5z"></path>
                   </svg>
 
-                  <span className="is-drawer-close:hidden">Manage Issues</span>
+                  <span className="is-drawer-close:hidden">
+                    Issue Management
+                  </span>
                 </Link>
               </li>
 
               <li>
                 <Link
-                  to="/manageStaff"
+                  to="/staffManagement"
                   className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                   data-tip="Manage Staff"
                 >
@@ -174,7 +176,38 @@ const SidebarComponent = () => {
                     <path d="M16 3.13a4 4 0 0 1 0 7.75" />
                   </svg>
 
-                  <span className="is-drawer-close:hidden">Manage Staff</span>
+                  <span className="is-drawer-close:hidden">
+                    Staff Management
+                  </span>
+                </Link>
+              </li>
+
+              <li>
+                <Link
+                  to="/userManagement"
+                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                  data-tip="User Management"
+                >
+                  {/* User Management Icon */}
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    strokeLinejoin="round"
+                    strokeLinecap="round"
+                    strokeWidth="2"
+                    fill="none"
+                    stroke="currentColor"
+                    className="my-1.5 inline-block size-5"
+                  >
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                    <circle cx="8.5" cy="7" r="4" />
+                    <path d="M20 8v6" />
+                    <path d="M23 11h-6" />
+                  </svg>
+
+                  <span className="is-drawer-close:hidden">
+                    User Management
+                  </span>
                 </Link>
               </li>
             </>

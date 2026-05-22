@@ -4,7 +4,7 @@ import { Link } from "react-router";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../Provider/AuthContext";
 
-const ManageStaff = () => {
+const StaffManagement = () => {
   const { staffs, setStaffs, getStaffs } = use(AuthContext);
 
   useEffect(() => {
@@ -164,4 +164,4 @@ const ManageStaff = () => {
   );
 };
 
-export default ManageStaff;
+export default StaffManagement;

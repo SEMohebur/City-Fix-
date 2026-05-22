@@ -14,10 +14,11 @@ import AllIssues from "../Pages/AllIssues";
 import IssueDetaile from "../Pages/IssueDetaile";
 import PrivateRoute from "./PrivateRoute";
 import UpdateIssue from "../Pages/UpdateIssue";
-import ManageIssue from "../Pages/Admin/ManageIssue";
-import ManageStaff from "../Pages/Admin/ManageStaff";
 import CreateStaff from "../Pages/Admin/CreateStaff";
 import DashBoard_Admin from "../Pages/Admin/DashBoard_Admin";
+import UserManagement from "../Pages/Admin/UserManagement";
+import StaffManagement from "../Pages/Admin/StaffManagement";
+import IssueManagement from "../Pages/Admin/IssueManagement";
 
 export const router = createBrowserRouter([
   {
@@ -66,21 +67,23 @@ export const router = createBrowserRouter([
 
       // Admin routs=======================
       {
-        path: "/manageIssues",
+        path: "/issueManagement",
         element: (
           <PrivateRoute>
-            <ManageIssue></ManageIssue>
+            <IssueManagement></IssueManagement>
           </PrivateRoute>
         ),
       },
+
       {
-        path: "/manageStaff",
+        path: "/staffManagement",
         element: (
           <PrivateRoute>
-            <ManageStaff></ManageStaff>
+            <StaffManagement></StaffManagement>
           </PrivateRoute>
         ),
       },
+
       {
         path: "/createStaff",
         element: (
@@ -95,6 +98,15 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <DashBoard_Admin></DashBoard_Admin>
+          </PrivateRoute>
+        ),
+      },
+
+      {
+        path: "/userManagement",
+        element: (
+          <PrivateRoute>
+            <UserManagement></UserManagement>
           </PrivateRoute>
         ),
       },

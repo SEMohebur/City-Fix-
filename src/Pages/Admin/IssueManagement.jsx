@@ -2,7 +2,7 @@ import { use } from "react";
 import { AuthContext } from "../../Provider/AuthContext";
 import Swal from "sweetalert2";
 
-const ManageIssue = () => {
+const IssueManagement = () => {
   const { allIssues, staffs, getStaffs } = use(AuthContext);
 
   console.log(allIssues);
@@ -198,4 +198,4 @@ const ManageIssue = () => {
   );
 };
 
-export default ManageIssue;
+export default IssueManagement;
