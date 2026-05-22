@@ -1,4 +1,4 @@
-import { use, useEffect } from "react";
+import { use, useEffect, useState } from "react";
 import { Mail, ShieldCheck, Users } from "lucide-react";
 import { Link } from "react-router";
 import Swal from "sweetalert2";
@@ -6,6 +6,7 @@ import { AuthContext } from "../../Provider/AuthContext";
 
 const StaffManagement = () => {
   const { staffs, setStaffs, getStaffs } = use(AuthContext);
+  const [staff, setStaff] = useState(null);
 
   useEffect(() => {
     getStaffs();
@@ -60,6 +61,93 @@ const StaffManagement = () => {
     }
   };
 
+  // updateToogle input feald and update staff info
+  const staffUpdateOpen = async (id) => {
+    document.getElementById("my_modal_1").showModal();
+    fetch(`http://localhost:3000/getSingleStuff/${id}`)
+      .then((res) => res.json())
+      .then((data) => setStaff(data))
+      .catch((err) => console.log(err.message));
+  };
+
+  const handleUpdateSubmit = async (e) => {
+    e.preventDefault();
+
+    const form = e.target;
+
+    const displayName = form.name.value.trim();
+    const photoURL = form.img.value.trim();
+
+    const updateStaff = {
+      displayName,
+      photoURL,
+    };
+
+    try {
+      const res = await fetch(
+        `http://localhost:3000/updateStaff/${staff._id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(updateStaff),
+        },
+      );
+
+      // response check
+      if (!res.ok) {
+        throw new Error("Failed to update staff");
+      }
+
+      const data = await res.json();
+
+      // success check
+      if (data.modifiedCount > 0) {
+        // instant ui update
+        const updatedStaffUi = staffs.map((prev) => {
+          if (prev._id === staff._id) {
+            return {
+              ...prev,
+              displayName,
+              photoURL,
+            };
+          }
+
+          return prev;
+        });
+
+        setStaffs(updatedStaffUi);
+
+        // success alert
+        Swal.fire({
+          icon: "success",
+          title: "Updated Successfully",
+          text: "Staff information updated successfully",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+
+        document.getElementById("my_modal_1").close();
+
+        // reset form
+        form.reset();
+      } else {
+        Swal.fire({
+          icon: "info",
+          title: "No Changes Detected",
+        });
+      }
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Update Failed",
+        text: error.message,
+      });
+    }
+    document.getElementById("my_modal_1").close();
+  };
+  // console.log(staffs);
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-100 to-cyan-50 p-6">
       {/* Header */}
@@ -145,7 +233,10 @@ const StaffManagement = () => {
 
               {/* Buttons */}
               <div className="grid grid-cols-2 gap-4 mt-6">
-                <button className="bg-cyan-500 hover:bg-cyan-600 text-white py-3 rounded-xl font-semibold transition-all duration-300">
+                <button
+                  onClick={() => staffUpdateOpen(staff._id)}
+                  className="bg-cyan-500 hover:bg-cyan-600 text-white py-3 rounded-xl font-semibold transition-all duration-300"
+                >
                   Update
                 </button>
 
@@ -160,6 +251,73 @@ const StaffManagement = () => {
           </div>
         ))}
       </div>
+      {/* update modal */}
+      <dialog id="my_modal_1" className="modal">
+        <div className="modal-box rounded-2xl p-0 overflow-hidden max-w-md bg-white">
+          {/* Header */}
+          <div className="bg-gradient-to-r from-cyan-600 to-blue-600 px-6 py-5">
+            <h3 className="text-white text-xl font-bold">
+              Update Staff Information
+            </h3>
+            <p className="text-white/80 text-sm mt-1">
+              Modify name and profile image
+            </p>
+          </div>
+
+          {/* Body */}
+          <form onSubmit={handleUpdateSubmit} className="p-6 space-y-6">
+            {/* Name Input */}
+            <div>
+              <label className="text-sm font-medium text-gray-700">
+                Full Name
+              </label>
+              <input
+                type="text"
+                name="name"
+                defaultValue={staff?.displayName}
+                placeholder="Enter staff name"
+                className="w-full mt-2 px-4 py-3 border border-gray-200 rounded-xl
+          focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent
+          transition-all duration-200"
+              />
+            </div>
+
+            {/* Image Input */}
+            <div>
+              <label className="text-sm font-medium text-gray-700">
+                Profile Image URL
+              </label>
+              <input
+                type="text"
+                defaultValue={staff?.photoURL}
+                placeholder="Paste image URL"
+                name="img"
+                className="w-full mt-2 px-4 py-3 border border-gray-200 rounded-xl
+          focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent
+          transition-all duration-200"
+              />
+            </div>
+
+            {/* Buttons */}
+            <div className="flex justify-center gap-3 pt-2">
+              <button
+                type="button"
+                onClick={() => document.getElementById("my_modal_1").close()}
+                className=" px-5 py-2.5 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium transition"
+              >
+                Cancel
+              </button>
+
+              <button
+                type="submit"
+                className="px-6 py-2.5 rounded-xl bg-cyan-600 hover:bg-cyan-700 text-white font-semibold shadow-md transition"
+              >
+                Save Changes
+              </button>
+            </div>
+          </form>
+        </div>
+      </dialog>
     </div>
   );
 };

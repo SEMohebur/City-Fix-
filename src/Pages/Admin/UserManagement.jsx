@@ -114,7 +114,7 @@ const UserManagement = () => {
                   <span className="text-gray-500">User ID</span>
 
                   <span className="font-medium text-base-content">
-                    #{user._id}
+                    #{user._id.slice(-9)}
                   </span>
                 </div>
 

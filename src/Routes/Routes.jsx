@@ -34,11 +34,19 @@ export const router = createBrowserRouter([
       { path: "/register", element: <Register></Register> },
       {
         path: "/myInfo",
-        element: <MyInfo></MyInfo>,
+        element: (
+          <PrivateRoute>
+            <MyIssues></MyIssues>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/myIssues",
-        element: <MyIssues></MyIssues>,
+        element: (
+          <PrivateRoute>
+            <MyIssues></MyIssues>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/createIssue",

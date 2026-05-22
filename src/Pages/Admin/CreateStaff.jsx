@@ -47,7 +47,7 @@ const CreateStaff = () => {
         title: "Success!",
         text: data.message || "Staff created successfully",
       }).then(() => {
-        navigate("/manageStaff");
+        navigate("/staffManagement");
       });
 
       e.target.reset();
