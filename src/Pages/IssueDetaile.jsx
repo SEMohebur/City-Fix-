@@ -6,7 +6,7 @@ import { MdCategory } from "react-icons/md";
 import { RiProgress3Line } from "react-icons/ri";
 import Swal from "sweetalert2";
 const IssueDetaile = () => {
-  const { allIssues, userInfo } = use(AuthContext);
+  const { allIssues, userInfo, singleUserdbInfo } = use(AuthContext);
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -28,6 +28,17 @@ const IssueDetaile = () => {
   const myIssue = userInfo?.email === issue?.email;
 
   const handleDelete = async (id) => {
+    if (singleUserdbInfo?.status === "blocked") {
+      Swal.fire({
+        icon: "error",
+        title: "Access Denied",
+        text: "Your account has been blocked. You cannot delete this issue.",
+        confirmButtonColor: "#06b6d4",
+      });
+
+      return;
+    }
+
     try {
       const result = await Swal.fire({
         title: "Are you sure?",
@@ -71,6 +82,22 @@ const IssueDetaile = () => {
       });
     }
   };
+
+  console.log(singleUserdbInfo.status);
+
+  const handleBoostPriority = () => {
+    if (singleUserdbInfo?.status === "blocked") {
+      Swal.fire({
+        icon: "error",
+        title: "Access Denied",
+        text: "Your account has been blocked. You cannot Boost this issue.",
+        confirmButtonColor: "#06b6d4",
+      });
+
+      return;
+    }
+  };
+
   return (
     <div className="max-w-7xl mx-auto px-4 py-10">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 bg-white shadow-xl rounded-3xl overflow-hidden">
@@ -168,6 +195,7 @@ const IssueDetaile = () => {
             </button>
 
             <button
+              onClick={() => handleBoostPriority()}
               disabled={!myIssue}
               className="btn btn-warning rounded-full px-8 text-white"
             >

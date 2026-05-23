@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 const IssueManagement = () => {
   const { allIssues, staffs, getStaffs } = use(AuthContext);
 
-  console.log(allIssues);
+  // console.log(allIssues);
 
   const handleStaffAsing = async (id, staffName) => {
     const res = await fetch(`http://localhost:3000/assignStaff/${id}`, {
@@ -69,71 +69,90 @@ const IssueManagement = () => {
     }
   };
   return (
-    <div>
-      <div className="overflow-x-auto rounded-2xl border border-base-300 bg-base-100 shadow-lg">
-        <table className="table">
-          <thead className="bg-base-200 text-base font-bold">
+    <div className="p-4 md:p-6">
+      <div className="overflow-x-auto rounded-2xl border border-gray-200 bg-white shadow-xl">
+        {/* HEADER BAR */}
+        <div className="flex items-center justify-between px-5 py-4 border-b bg-gradient-to-r from-slate-50 to-gray-50">
+          <h2 className="text-lg font-semibold text-gray-700">
+            Issues Management Table
+          </h2>
+          <span className="text-xs text-gray-500">
+            Total: {allIssues?.length || 0}
+          </span>
+        </div>
+
+        <table className="table w-full text-center">
+          {/* TABLE HEAD */}
+          <thead className="bg-gray-100 text-gray-700 uppercase text-xs tracking-wider">
             <tr>
-              <th>#</th>
+              <th className="py-3">#</th>
               <th>Image</th>
               <th>Title</th>
               <th>Category</th>
               <th>Assigned Staff</th>
               <th>Status</th>
               <th>Location</th>
-
               <th>Upvotes</th>
               <th>Date</th>
               <th>Priority</th>
             </tr>
           </thead>
 
-          <tbody>
+          <tbody className="divide-y divide-gray-100 ">
             {allIssues?.map((issue, i) => {
-              const formatDate = (dateStr) => {
-                return new Date(dateStr).toLocaleString("en-US", {
+              const formatDate = (dateStr) =>
+                new Date(dateStr).toLocaleString("en-US", {
                   weekday: "short",
                   year: "numeric",
                   month: "short",
                   day: "numeric",
                 });
-              };
 
               return (
                 <tr
                   key={i}
-                  className="hover transition duration-200 hover:bg-base-200"
+                  className="hover:bg-gray-50 transition duration-200"
                 >
-                  <td className="font-bold">{i + 1}</td>
-                  <td className="text-sm ">
+                  {/* INDEX */}
+                  <td className="font-semibold text-gray-600 border">
+                    {i + 1}
+                  </td>
+
+                  {/* IMAGE */}
+                  <td className=" border">
                     <img
                       src={issue?.img}
                       alt=""
-                      className=" rounded-full h-10 w-10 border border-red-500 p-1"
+                      className="h-11 w-11 rounded-full object-cover border-2 border-gray-200 shadow-sm"
                     />
                   </td>
 
-                  <td>
-                    <div className="font-semibold">{issue.title}</div>
+                  {/* TITLE */}
+                  <td className=" border">
+                    <div className="font-semibold text-gray-800">
+                      {issue.title}
+                    </div>
                   </td>
 
-                  <td>
-                    <span className=" badge-info">{issue.category}</span>
+                  {/* CATEGORY */}
+                  <td className=" border">
+                    <span className="px-2 py-1 text-xs  text-blue-600 font-medium">
+                      {issue.category}
+                    </span>
                   </td>
 
-                  <td>
+                  {/* ASSIGNED STAFF */}
+                  <td className=" border">
                     <select
-                      className={`select select-bordered select-sm w-full max-w-xs ${
-                        issue.assignedStaff ? "select-success" : ""
+                      className={`select select-bordered select-sm w-full max-w-xs rounded-lg border-gray-300 focus:border-blue-400 focus:ring-2 focus:ring-blue-100 ${
+                        issue.assignedStaff ? "bg-green-50" : ""
                       }`}
                       defaultValue={issue.assignedStaff || ""}
                       onChange={(e) =>
                         handleStaffAsing(issue._id, e.target.value)
                       }
                     >
-                      {issue?.assignedStaff ? (
-                        ""
-                      ) : (
+                      {!issue.assignedStaff && (
                         <option value="">Select Staff</option>
                       )}
 
@@ -145,11 +164,16 @@ const IssueManagement = () => {
                     </select>
                   </td>
 
-                  <td>
+                  {/* STATUS */}
+                  <td className=" border">
                     {issue.status === "pending" ||
                     issue.status === "rejected" ? (
                       <select
-                        className={`select select-bordered select-sm ${issue.status == "rejected" ? "bg-red-400 text-white " : ""}`}
+                        className={`select select-bordered select-sm rounded-lg ${
+                          issue.status === "rejected"
+                            ? "bg-red-100 text-red-600"
+                            : "bg-yellow-50"
+                        }`}
                         defaultValue={issue.status}
                         onChange={(e) =>
                           handleStatusUpdate(issue._id, e.target.value)
@@ -159,30 +183,48 @@ const IssueManagement = () => {
                         <option value="rejected">Rejected</option>
                       </select>
                     ) : (
-                      <span>{issue.status}</span>
+                      <span
+                        className={`px-2 py-1 text-xs font-medium ${
+                          issue.status === "in-progress"
+                            ? " text-blue-600"
+                            : issue.status === "working"
+                              ? " text-indigo-600"
+                              : issue.status === "resolved"
+                                ? " text-green-600"
+                                : " text-gray-600"
+                        }`}
+                      >
+                        {issue.status}
+                      </span>
                     )}
                   </td>
 
-                  <td>
-                    <span className="font-medium">{issue.location}</span>
+                  {/* LOCATION */}
+                  <td className="text-gray-600 font-medium border">
+                    {issue.location}
                   </td>
 
-                  <td>
-                    <span className="font-bold text-primary">
+                  {/* UPVOTES */}
+                  <td className=" border">
+                    <span className="font-bold text-emerald-600">
                       {issue.upvotes}
                     </span>
                   </td>
 
-                  <td>{formatDate(issue.date)}</td>
+                  {/* DATE */}
+                  <td className="text-xs text-gray-500 border">
+                    {formatDate(issue.date)}
+                  </td>
 
-                  <td>
+                  {/* PRIORITY */}
+                  <td className=" border">
                     <span
-                      className={`badge ${
+                      className={`px-2 py-1 text-xs rounded-full font-semibold ${
                         issue.priority === "high"
-                          ? "badge-error"
+                          ? "bg-red-100 text-red-600"
                           : issue.priority === "normal"
-                            ? "badge-warning"
-                            : "badge-success"
+                            ? "bg-yellow-100 text-yellow-700"
+                            : "bg-green-100 text-green-600"
                       }`}
                     >
                       {issue.priority}
@@ -193,6 +235,9 @@ const IssueManagement = () => {
             })}
           </tbody>
         </table>
+        {allIssues.length === 0 && (
+          <div className=" text-center">Loading...</div>
+        )}
       </div>
     </div>
   );

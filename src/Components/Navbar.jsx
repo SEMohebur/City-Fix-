@@ -200,7 +200,7 @@ const Navbar = () => {
             {userInfo?.email ? (
               <>
                 <li>
-                  <a>Profile</a>
+                  <Link to={"/profile"}>Profile</Link>
                 </li>
                 <li>
                   <Link to={"/dashboard_admin"}>Dashboard</Link>

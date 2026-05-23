@@ -3,12 +3,16 @@ import { AuthContext } from "../Provider/AuthContext";
 import IssueCard from "../Components/IssueCard";
 
 const AllIssues = () => {
-  const { allIssues, allIssuesGetDbMethod, userInfo } = use(AuthContext);
+  const { allIssues, allIssuesGetDbMethod, userInfo, singleUserdbInfo } =
+    use(AuthContext);
 
   // allissues data get korchi authprovider er modhe eikhane sodhu effect kore re-call korsi
   useEffect(() => {
     allIssuesGetDbMethod();
   }, []);
+
+  const blockStatus = singleUserdbInfo?.status;
+  // console.log(blockStatus);
 
   return (
     <div className="py-10 px-4">
@@ -22,6 +26,7 @@ const AllIssues = () => {
               i={i}
               userInfo={userInfo}
               key={i}
+              blockStatus={blockStatus}
             ></IssueCard>
           ))}
         </div>

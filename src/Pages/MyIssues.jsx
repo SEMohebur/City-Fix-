@@ -4,7 +4,7 @@ import IssueCard from "../Components/IssueCard";
 import { useNavigate } from "react-router";
 
 const MyIssues = () => {
-  const { userInfo } = useContext(AuthContext);
+  const { userInfo, singleUserdbInfo } = useContext(AuthContext);
   const [issues, setIssues] = useState([]);
   const navigate = useNavigate();
 
@@ -16,8 +16,8 @@ const MyIssues = () => {
       .then((data) => setIssues(data))
       .catch((error) => console.log(error.message));
   }, [userInfo?.email]);
+  console.log(singleUserdbInfo);
 
-  // console.log(issues);
   return (
     <div className="min-h-screen bg-slate-50 py-10 px-4">
       <div className="max-w-6xl mx-auto">
@@ -50,6 +50,7 @@ const MyIssues = () => {
               issue={issue}
               i={i}
               userInfo={userInfo}
+              singleUserdbInfo={singleUserdbInfo}
               key={i}
             ></IssueCard>
           ))}

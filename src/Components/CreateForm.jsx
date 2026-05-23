@@ -1,3 +1,6 @@
+import { use } from "react";
+import { AuthContext } from "../Provider/AuthContext";
+
 const CreateForm = ({
   handleCreateIssue,
   submitStatus,
@@ -7,6 +10,10 @@ const CreateForm = ({
 }) => {
   const { title, description, category, location, img, priority } =
     singleIssue || {};
+
+  const { singleUserdbInfo } = use(AuthContext);
+  // console.log(singleUserdbInfo);
+  console.log();
 
   return (
     <form
@@ -115,19 +122,27 @@ const CreateForm = ({
         ></textarea>
       </div>
 
+      {singleUserdbInfo?.status === "blocked" && (
+        <p className="text-red-500 text-sm font-medium">
+          Your account is blocked. Please contact admin.
+        </p>
+      )}
+
       {/* Button */}
       <div className="md:col-span-2">
         {submitStatus ? (
           <button
+            disabled={singleUserdbInfo?.status === "blocked"}
             type="submit"
-            className="w-full bg-cyan-500 hover:bg-cyan-600 transition-all duration-300 text-white font-semibold py-4 rounded-xl shadow-lg shadow-cyan-200"
+            className="w-full bg-cyan-500 hover:bg-cyan-600 transition-all duration-300 text-white font-semibold py-4 rounded-xl shadow-lg shadow-cyan-200 cursor-pointer"
           >
             {id ? "Update Issue" : "Submit Issue"}
           </button>
         ) : (
           <button
             type="button"
-            className="w-full bg-cyan-500 hover:bg-cyan-600 transition-all duration-300 text-white font-semibold py-4 rounded-xl shadow-lg shadow-cyan-200"
+            disabled={singleUserdbInfo?.status === "blocked"}
+            className="w-full bg-cyan-500 hover:bg-cyan-600 transition-all duration-300 text-white font-semibold py-4 rounded-xl shadow-lg cursor-pointer shadow-cyan-200 "
           >
             {" "}
             Subscription

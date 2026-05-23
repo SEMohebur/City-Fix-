@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router";
 import { FaHeart } from "react-icons/fa";
 import Swal from "sweetalert2";
 
-const IssueCard = ({ issue, i, userInfo }) => {
+const IssueCard = ({ issue, i, userInfo, blockStatus }) => {
   // const myIssue = userInfo?.email !== issue?.email;
 
   const [liked, setLiked] = useState(false);
@@ -16,6 +16,17 @@ const IssueCard = ({ issue, i, userInfo }) => {
       navigate("/login");
       return;
     }
+    if (blockStatus === "blocked") {
+      Swal.fire({
+        icon: "error",
+        title: "Access Denied",
+        text: "Your account has been blocked. You cannot upvote any issue.",
+        confirmButtonColor: "#06b6d4",
+      });
+
+      return;
+    }
+
     const res = await fetch(`http://localhost:3000/upvote/${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },

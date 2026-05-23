@@ -9,7 +9,6 @@ import Login from "../Auth/Login";
 import Register from "../Auth/Register";
 import MyIssues from "../Pages/MyIssues";
 import CreateIssues from "../Pages/CreateIssues";
-import MyInfo from "../Pages/MyInfo";
 import AllIssues from "../Pages/AllIssues";
 import IssueDetaile from "../Pages/IssueDetaile";
 import PrivateRoute from "./PrivateRoute";
@@ -20,6 +19,7 @@ import UserManagement from "../Pages/Admin/UserManagement";
 import StaffManagement from "../Pages/Admin/StaffManagement";
 import IssueManagement from "../Pages/Admin/IssueManagement";
 import IssueProgress from "../Pages/Staff/IssueProgress";
+import Profile from "../Pages/Profile";
 
 export const router = createBrowserRouter([
   {
@@ -33,14 +33,16 @@ export const router = createBrowserRouter([
       { path: "/contact", element: <Contact></Contact> },
       { path: "/login", element: <Login></Login> },
       { path: "/register", element: <Register></Register> },
+
       {
-        path: "/myInfo",
+        path: "/profile",
         element: (
           <PrivateRoute>
-            <MyIssues></MyIssues>
+            <Profile></Profile>
           </PrivateRoute>
         ),
       },
+
       {
         path: "/myIssues",
         element: (
