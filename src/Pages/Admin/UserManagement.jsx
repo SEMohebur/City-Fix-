@@ -54,6 +54,14 @@ const UserManagement = () => {
     });
   };
 
+  if (users.length === 0) {
+    return (
+      <div className=" h-40 flex justify-center items-center">
+        <p>loading...</p>
+      </div>
+    );
+  }
+
   return (
     <div>
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">

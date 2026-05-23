@@ -19,6 +19,7 @@ import DashBoard_Admin from "../Pages/Admin/DashBoard_Admin";
 import UserManagement from "../Pages/Admin/UserManagement";
 import StaffManagement from "../Pages/Admin/StaffManagement";
 import IssueManagement from "../Pages/Admin/IssueManagement";
+import IssueProgress from "../Pages/Staff/IssueProgress";
 
 export const router = createBrowserRouter([
   {
@@ -115,6 +116,15 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <UserManagement></UserManagement>
+          </PrivateRoute>
+        ),
+      },
+
+      {
+        path: "/issueProgress",
+        element: (
+          <PrivateRoute>
+            <IssueProgress></IssueProgress>
           </PrivateRoute>
         ),
       },

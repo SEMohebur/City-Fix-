@@ -122,6 +122,37 @@ const SidebarComponent = () => {
               </li>
             </>
           )}
+
+          {/* staff links  */}
+          {singleUserdbInfo?.role === "staff" && (
+            <>
+              <li>
+                <Link
+                  to="/issueProgress"
+                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                  data-tip="Manage Issues"
+                >
+                  {/* Manage Icon */}
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    strokeLinejoin="round"
+                    strokeLinecap="round"
+                    strokeWidth="2"
+                    fill="none"
+                    stroke="currentColor"
+                    className="my-1.5 inline-block size-5"
+                  >
+                    <path d="M12 20h9"></path>
+                    <path d="M16.5 3.5a2.121 2.121 0 1 1 3 3L7 19l-4 1 1-4 12.5-12.5z"></path>
+                  </svg>
+
+                  <span className="is-drawer-close:hidden">Issue Progress</span>
+                </Link>
+              </li>
+            </>
+          )}
+
           {/* Admin Links ============================================ */}
           {singleUserdbInfo?.role === "admin" && (
             // manage issue link
