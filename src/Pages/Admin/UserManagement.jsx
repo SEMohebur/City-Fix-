@@ -63,16 +63,16 @@ const UserManagement = () => {
   }
 
   return (
-    <div>
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 p-6">
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
         {users?.map((user) => (
           <div
             key={user._id}
-            className="group relative overflow-hidden rounded-3xl border border-base-200 bg-base-100 shadow-sm hover:shadow-2xl transition-all duration-500"
+            className="group relative overflow-hidden rounded-3xl border border-slate-800 bg-slate-900/60 backdrop-blur-xl shadow-lg hover:shadow-cyan-500/10 transition-all duration-500"
           >
             {/* Top Gradient */}
-            <div className="h-28 bg-gradient-to-r from-blue-500 via-cyan-400 to-indigo-500 relative">
-              <div className="absolute inset-0 bg-black/10"></div>
+            <div className="h-28 bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-600 relative">
+              <div className="absolute inset-0 bg-black/20"></div>
             </div>
 
             {/* Profile Image */}
@@ -80,74 +80,71 @@ const UserManagement = () => {
               <img
                 src={user.photoURL}
                 alt={user.displayName}
-                className="w-28 h-28 rounded-full object-cover border-[6px] border-white shadow-lg absolute -top-14 group-hover:scale-105 transition duration-300"
+                className="w-28 h-28 rounded-full object-cover border-4 border-slate-900 shadow-xl absolute -top-14 group-hover:scale-105 transition duration-300"
               />
             </div>
 
             {/* Card Body */}
-            <div className="pt-20 px-6 pb-6">
-              {/* Name + Role */}
-              <div className="text-center">
-                <h2 className="text-2xl font-bold text-base-content">
-                  {user.displayName}
-                </h2>
+            <div className="pt-20 px-6 pb-6 text-center">
+              {/* Name */}
+              <h2 className="text-2xl font-bold text-white">
+                {user.displayName}
+              </h2>
 
-                <p className="text-sm text-gray-500 mt-1 break-all">
-                  {user.email}
-                </p>
+              <p className="text-sm text-slate-400 mt-1 break-all">
+                {user.email}
+              </p>
 
-                <div className="flex justify-center gap-2 mt-4 flex-wrap">
-                  <span className="badge badge-info badge-outline px-4 py-3 capitalize font-medium">
-                    {user.role}
-                  </span>
+              {/* Badges */}
+              <div className="flex justify-center gap-2 mt-4 flex-wrap">
+                <span className="px-4 py-1 rounded-full text-xs font-medium bg-cyan-500/10 text-cyan-300 border border-cyan-500/20 capitalize">
+                  {user.role}
+                </span>
 
-                  <span
-                    className={`badge px-4 py-3 font-medium ${
-                      user.status === "blocked"
-                        ? "badge-error"
-                        : "badge-success"
-                    }`}
-                  >
-                    {user.status === "blocked" ? "Blocked" : "Active"}
-                  </span>
-                </div>
+                <span
+                  className={`px-4 py-1 rounded-full text-xs font-medium border ${
+                    user.status === "blocked"
+                      ? "bg-red-500/10 text-red-400 border-red-500/20"
+                      : "bg-green-500/10 text-green-400 border-green-500/20"
+                  }`}
+                >
+                  {user.status === "blocked" ? "Blocked" : "Active"}
+                </span>
               </div>
 
               {/* Divider */}
-              <div className="divider my-5"></div>
+              <div className="h-px bg-slate-800 my-5"></div>
 
-              {/* User Info */}
-              <div className="space-y-3 text-sm">
-                <div className="flex items-center justify-between">
-                  <span className="text-gray-500">User ID</span>
-
-                  <span className="font-medium text-base-content">
+              {/* Info */}
+              <div className="space-y-3 text-sm text-left">
+                <div className="flex justify-between">
+                  <span className="text-slate-400">User ID</span>
+                  <span className="text-white font-medium">
                     #{user._id.slice(-9)}
                   </span>
                 </div>
 
-                <div className="flex items-center justify-between">
-                  <span className="text-gray-500">Joined</span>
-
-                  <span className="font-medium text-base-content">
+                <div className="flex justify-between">
+                  <span className="text-slate-400">Joined</span>
+                  <span className="text-white font-medium">
                     {new Date(user.createdAt).toLocaleDateString()}
                   </span>
                 </div>
               </div>
 
-              {/* Action Buttons */}
+              {/* Button */}
               <div className="mt-6">
                 {user.status === "blocked" ? (
                   <button
                     onClick={() => handleBlockUnblock(user._id, "active")}
-                    className="btn btn-success w-full rounded-xl text-white"
+                    className="w-full py-3 rounded-2xl bg-green-500 hover:bg-green-400 text-white font-semibold transition shadow-lg shadow-green-500/10"
                   >
                     Unblock User
                   </button>
                 ) : (
                   <button
                     onClick={() => handleBlockUnblock(user._id, "blocked")}
-                    className="btn btn-error w-full rounded-xl text-white"
+                    className="w-full py-3 rounded-2xl bg-red-500 hover:bg-red-400 text-white font-semibold transition shadow-lg shadow-red-500/10"
                   >
                     Block User
                   </button>
@@ -155,8 +152,8 @@ const UserManagement = () => {
               </div>
             </div>
 
-            {/* Hover Border Effect */}
-            <div className="absolute inset-0 rounded-3xl border-2 border-transparent group-hover:border-primary/30 pointer-events-none transition-all duration-500"></div>
+            {/* Hover Glow */}
+            <div className="absolute inset-0 rounded-3xl border border-transparent group-hover:border-cyan-500/20 transition-all duration-500 pointer-events-none"></div>
           </div>
         ))}
       </div>

@@ -15,37 +15,37 @@ const Home = () => {
       .catch((err) => console.log(err.message));
   }, []);
   return (
-    <div className=" bg-gray-100">
-      <div className=" bg-cyan-900 pb-2">
-        <h2 className="text-5xl font-bold text-gray-100 text-center py-2">
-          Welcome to CityFix
-        </h2>
-
-        <p className="text-gray-200 text-center max-w-3xl mx-auto mt-5 text-lg leading-relaxed">
-          CityFix is a smart city service platform that helps citizens easily
-          report road damage, water leakage, broken street lights, garbage
-          problems, and other public issues. Together, we can build a cleaner,
-          safer, and better city for everyone.
-        </p>
-
-        <ActiveSlider></ActiveSlider>
+    <div className="bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 min-h-screen">
+      {/* Slider Section */}
+      <div className="px-4 pt-6">
+        <ActiveSlider />
       </div>
 
-      {/* recent 6 issues  */}
-      <div>
-        <h1 className="text-3xl font-bold text-slate-800 m-6">Latest Issues</h1>
+      {/* Recent Issues Section */}
+      <div className="max-w-7xl mx-auto px-4 py-12">
+        {/* Heading */}
+        <div className="mb-8">
+          <h1 className="text-3xl md:text-4xl font-bold text-white">
+            Latest Issues
+          </h1>
 
-        <div className=" p-4">
-          <div className=" grid md:grid-cols-2 lg:grid-cols-3  gap-6">
-            {recentIssues?.map((issue, i) => (
-              <IssueCard
-                issue={issue}
-                i={i}
-                userInfo={userInfo}
-                key={i}
-              ></IssueCard>
-            ))}
-          </div>
+          <p className="text-slate-400 mt-2">
+            Recently reported public infrastructure problems
+          </p>
+
+          <div className="mt-4 h-[2px] w-24 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full"></div>
+        </div>
+
+        {/* Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-7">
+          {recentIssues?.map((issue, i) => (
+            <div
+              key={i}
+              className="group bg-slate-900/80 border border-slate-800 rounded-3xl p-5 shadow-lg shadow-black/30 hover:border-cyan-500/30 hover:shadow-cyan-500/10 transition-all duration-300"
+            >
+              <IssueCard issue={issue} i={i} userInfo={userInfo} />
+            </div>
+          ))}
         </div>
       </div>
     </div>

@@ -66,65 +66,75 @@ const IssueCard = ({ issue, i, userInfo, blockStatus }) => {
   return (
     <div
       key={i}
-      className="bg-white border border-slate-200 rounded-2xl shadow hover:shadow-lg transition overflow-hidden"
+      className="bg-slate-900/80 border border-slate-800 rounded-3xl overflow-hidden shadow-xl shadow-black/30 hover:shadow-cyan-500/10 hover:border-cyan-500/30 transition-all duration-300 group"
     >
       {/* Image */}
-      <img src={issue.img} alt="issue" className="h-48 w-full object-cover" />
+      <div className="overflow-hidden">
+        <img
+          src={issue.img}
+          alt="issue"
+          className="h-48 w-full object-cover group-hover:scale-105 transition duration-500"
+        />
+      </div>
 
       {/* Content */}
-      <div className="p-5 space-y-2">
-        <h2 className="text-xl font-semibold text-slate-800">{issue.title}</h2>
+      <div className="p-5 space-y-3">
+        <h2 className="text-xl font-semibold text-white group-hover:text-cyan-400 transition">
+          {issue.title}
+        </h2>
 
-        <p className="text-slate-500 text-sm">{issue.description}</p>
+        <p className="text-slate-400 text-sm line-clamp-2">
+          {issue.description}
+        </p>
 
         {/* Badges */}
         <div className="flex flex-wrap gap-2 mt-3">
-          <span className="px-3 py-1 text-xs rounded-full bg-blue-100 text-blue-600">
+          <span className="px-3 py-1 text-xs rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
             {issue.category}
           </span>
 
-          <span className="px-3 py-1 text-xs rounded-full bg-green-100 text-green-600">
+          <span className="px-3 py-1 text-xs rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
             {issue.status}
           </span>
 
-          <span className="px-3 py-1 text-xs rounded-full bg-yellow-100 text-yellow-700">
+          <span className="px-3 py-1 text-xs rounded-full bg-yellow-500/10 text-yellow-400 border border-yellow-500/20">
             {issue.priority}
           </span>
         </div>
 
-        {/* Info */}
-        <div>
-          <div className="text-sm text-slate-500 mt-3">📍 {issue.location}</div>
-        </div>
+        {/* Location */}
+        <div className="text-sm text-slate-400 mt-2">📍 {issue.location}</div>
 
-        <div className=" flex items-center justify-between">
-          <div className="text-sm text-slate-400">Upvotes: ({count})</div>
-          {/* upvote */}
+        {/* Footer */}
+        <div className="flex items-center justify-between pt-2">
+          <div className="text-sm text-slate-500">
+            Upvotes: <span className="text-white font-semibold">({count})</span>
+          </div>
+
+          {/* Upvote Button */}
           <button
-            // disabled={myIssue}
             onClick={() => handleUpvoteDbRequest(issue._id, userInfo?.email)}
-            className={`flex items-center gap-2 px-3 py-1 rounded-full text-sm transition-all duration-300 shadow-md cursor-pointer ${
+            className={`flex items-center gap-2 px-4 py-2 rounded-2xl text-sm font-medium transition-all duration-300 ${
               liked
-                ? "bg-red-500 text-white scale-105"
-                : "bg-white text-gray-700 border"
+                ? "bg-red-500 text-white shadow-lg shadow-red-500/20"
+                : "bg-slate-950/60 text-slate-300 border border-slate-800 hover:border-red-500/40"
             }`}
           >
             <FaHeart
-              className={`text-lg transition-all duration-300 ${
-                liked ? "text-white" : "text-red-500"
-              }`}
+              className={`text-base ${liked ? "text-white" : "text-red-500"}`}
             />
 
-            <span className="font-semibold">{liked ? "Loved" : "Love"}</span>
+            {liked ? "Loved" : "Love"}
           </button>
         </div>
 
-        <div className="text-xs text-slate-400 mt-2">{issue.date}</div>
+        {/* Date */}
+        <div className="text-xs text-slate-500 pt-1">{issue.date}</div>
 
-        {/* Button */}
+        {/* View Button */}
         <Link
           to={`/issueDetaile/${issue._id}`}
-          className="w-full mt-4 bg-cyan-500 hover:bg-cyan-600 text-white p-2 rounded-xl transition"
+          className="block text-center mt-4 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-white font-semibold py-2 rounded-2xl shadow-lg shadow-cyan-500/20 transition"
         >
           View Details
         </Link>

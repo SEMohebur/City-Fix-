@@ -69,23 +69,24 @@ const IssueManagement = () => {
     }
   };
   return (
-    <div className="p-4 md:p-6">
-      <div className="overflow-x-auto rounded-2xl border border-gray-200 bg-white shadow-xl">
-        {/* HEADER BAR */}
-        <div className="flex items-center justify-between px-5 py-4 border-b bg-gradient-to-r from-slate-50 to-gray-50">
-          <h2 className="text-lg font-semibold text-gray-700">
+    <div className="p-4 md:p-6 min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
+      <div className="overflow-x-auto rounded-3xl border border-white/10 bg-slate-900/70 shadow-2xl shadow-black/30 backdrop-blur-xl">
+        {/* HEADER */}
+        <div className="flex items-center justify-between px-6 py-5 border-b border-white/10 bg-slate-900/50">
+          <h2 className="text-lg md:text-xl font-bold text-white">
             Issues Management Table
           </h2>
-          <span className="text-xs text-gray-500">
+
+          <span className="text-xs md:text-sm text-slate-400 bg-white/5 border border-white/10 px-3 py-1 rounded-full">
             Total: {allIssues?.length || 0}
           </span>
         </div>
 
-        <table className="table w-full text-center">
-          {/* TABLE HEAD */}
-          <thead className="bg-gray-100 text-gray-700 uppercase text-xs tracking-wider">
+        <table className="table w-full text-center text-sm md:text-base">
+          {/* HEAD */}
+          <thead className="bg-slate-800/60 text-slate-300 uppercase text-xs tracking-wider">
             <tr>
-              <th className="py-3">#</th>
+              <th className="py-4">#</th>
               <th>Image</th>
               <th>Title</th>
               <th>Category</th>
@@ -98,7 +99,7 @@ const IssueManagement = () => {
             </tr>
           </thead>
 
-          <tbody className="divide-y divide-gray-100 ">
+          <tbody className="divide-y divide-white/5">
             {allIssues?.map((issue, i) => {
               const formatDate = (dateStr) =>
                 new Date(dateStr).toLocaleString("en-US", {
@@ -111,41 +112,34 @@ const IssueManagement = () => {
               return (
                 <tr
                   key={i}
-                  className="hover:bg-gray-50 transition duration-200"
+                  className="hover:bg-white/5 transition-all duration-200"
                 >
                   {/* INDEX */}
-                  <td className="font-semibold text-gray-600 border">
-                    {i + 1}
-                  </td>
+                  <td className="font-semibold text-slate-300">{i + 1}</td>
 
                   {/* IMAGE */}
-                  <td className=" border">
+                  <td>
                     <img
                       src={issue?.img}
-                      alt=""
-                      className="h-11 w-11 rounded-full object-cover border-2 border-gray-200 shadow-sm"
+                      className="h-12 w-12 rounded-xl object-cover border border-white/10 shadow-md mx-auto"
                     />
                   </td>
 
                   {/* TITLE */}
-                  <td className=" border">
-                    <div className="font-semibold text-gray-800">
-                      {issue.title}
-                    </div>
-                  </td>
+                  <td className="text-white font-semibold">{issue.title}</td>
 
                   {/* CATEGORY */}
-                  <td className=" border">
-                    <span className="px-2 py-1 text-xs  text-blue-600 font-medium">
+                  <td>
+                    <span className="px-3 py-1 text-xs rounded-full bg-cyan-500/10 text-cyan-300 border border-cyan-500/20">
                       {issue.category}
                     </span>
                   </td>
 
-                  {/* ASSIGNED STAFF */}
-                  <td className=" border">
+                  {/* STAFF */}
+                  <td>
                     <select
-                      className={`select select-bordered select-sm w-full max-w-xs rounded-lg border-gray-300 focus:border-blue-400 focus:ring-2 focus:ring-blue-100 ${
-                        issue.assignedStaff ? "bg-green-50" : ""
+                      className={`select select-sm w-full max-w-[140px] rounded-xl bg-slate-800 border border-white/10 text-white focus:outline-none focus:ring-2 focus:ring-cyan-500/20 ${
+                        issue.assignedStaff ? "border-emerald-500/30" : ""
                       }`}
                       defaultValue={issue.assignedStaff || ""}
                       onChange={(e) =>
@@ -165,14 +159,14 @@ const IssueManagement = () => {
                   </td>
 
                   {/* STATUS */}
-                  <td className=" border">
+                  <td>
                     {issue.status === "pending" ||
                     issue.status === "rejected" ? (
                       <select
-                        className={`select select-bordered select-sm rounded-lg ${
+                        className={`select select-sm rounded-xl bg-slate-800 border border-white/10 text-white focus:ring-2 focus:ring-cyan-500/20 ${
                           issue.status === "rejected"
-                            ? "bg-red-100 text-red-600"
-                            : "bg-yellow-50"
+                            ? "border-red-500/30"
+                            : "border-yellow-500/30"
                         }`}
                         defaultValue={issue.status}
                         onChange={(e) =>
@@ -184,14 +178,14 @@ const IssueManagement = () => {
                       </select>
                     ) : (
                       <span
-                        className={`px-2 py-1 text-xs font-medium ${
+                        className={`text-xs font-semibold px-3 py-1 rounded-full ${
                           issue.status === "in-progress"
-                            ? " text-blue-600"
+                            ? "text-blue-300 bg-blue-500/10"
                             : issue.status === "working"
-                              ? " text-indigo-600"
+                              ? "text-indigo-300 bg-indigo-500/10"
                               : issue.status === "resolved"
-                                ? " text-green-600"
-                                : " text-gray-600"
+                                ? "text-emerald-300 bg-emerald-500/10"
+                                : "text-slate-300 bg-white/5"
                         }`}
                       >
                         {issue.status}
@@ -200,31 +194,27 @@ const IssueManagement = () => {
                   </td>
 
                   {/* LOCATION */}
-                  <td className="text-gray-600 font-medium border">
-                    {issue.location}
-                  </td>
+                  <td className="text-slate-300">{issue.location}</td>
 
                   {/* UPVOTES */}
-                  <td className=" border">
-                    <span className="font-bold text-emerald-600">
-                      {issue.upvotes}
-                    </span>
+                  <td className="font-bold text-emerald-400">
+                    {issue.upvotes}
                   </td>
 
                   {/* DATE */}
-                  <td className="text-xs text-gray-500 border">
+                  <td className="text-xs text-slate-400">
                     {formatDate(issue.date)}
                   </td>
 
                   {/* PRIORITY */}
-                  <td className=" border">
+                  <td>
                     <span
-                      className={`px-2 py-1 text-xs rounded-full font-semibold ${
+                      className={`px-3 py-1 text-xs rounded-full font-semibold ${
                         issue.priority === "high"
-                          ? "bg-red-100 text-red-600"
+                          ? "bg-red-500/10 text-red-300 border border-red-500/20"
                           : issue.priority === "normal"
-                            ? "bg-yellow-100 text-yellow-700"
-                            : "bg-green-100 text-green-600"
+                            ? "bg-yellow-500/10 text-yellow-300 border border-yellow-500/20"
+                            : "bg-emerald-500/10 text-emerald-300 border border-emerald-500/20"
                       }`}
                     >
                       {issue.priority}
@@ -235,8 +225,11 @@ const IssueManagement = () => {
             })}
           </tbody>
         </table>
+
         {allIssues.length === 0 && (
-          <div className=" text-center">Loading...</div>
+          <div className="text-center py-10 text-slate-400">
+            No issues found
+          </div>
         )}
       </div>
     </div>

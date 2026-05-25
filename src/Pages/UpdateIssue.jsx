@@ -64,22 +64,24 @@ const UpdateIssue = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-100 to-cyan-50 py-10 px-4">
-      <div className="max-w-4xl mx-auto bg-white border border-slate-200 rounded-3xl shadow-xl p-8">
-        {/* Heading */}
-        <div className="text-center mb-10">
-          <h1 className="text-4xl font-bold text-slate-800">Update Issue</h1>
-
-          <p className="text-slate-500 mt-3">
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 py-10 px-4">
+      <div className="max-w-4xl mx-auto">
+        <div className="mb-8 text-center">
+          <h1 className="text-4xl font-bold text-white">Update Issue</h1>
+          <p className="text-slate-400 mt-2">
             Report public infrastructure problems in your area
           </p>
+          <div className="mt-4 h-[2px] w-24 mx-auto bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full"></div>
         </div>
-        <CreateForm
-          submitStatus={submitStatus}
-          handleUpdate={handleUpdate}
-          id={id}
-          singleIssue={singleIssue}
-        ></CreateForm>
+
+        <div className="bg-slate-900/80 border border-slate-800 rounded-3xl shadow-xl shadow-black/40 p-6">
+          <CreateForm
+            submitStatus={submitStatus}
+            handleUpdate={handleUpdate}
+            id={id}
+            singleIssue={singleIssue}
+          />
+        </div>
       </div>
     </div>
   );

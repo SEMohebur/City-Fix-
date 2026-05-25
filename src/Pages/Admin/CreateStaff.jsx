@@ -61,63 +61,83 @@ const CreateStaff = () => {
   };
 
   return (
-    <div className="hero p-5">
-      <div className="card bg-white w-full max-w-sm shrink-0 shadow-2xl">
-        <h2 className=" font-bold text-3xl text-gray-600 text-center py-4">
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 flex items-center justify-center p-6">
+      <div className="w-full max-w-md bg-slate-900/70 border border-slate-800 rounded-3xl shadow-2xl backdrop-blur-xl p-8">
+        {/* Header */}
+        <h2 className="text-3xl font-bold text-center text-white mb-8">
           Create Staff
         </h2>
-        <div className="card-body">
-          <form onSubmit={handleRegister}>
-            <fieldset className="fieldset">
-              <label className="label text-gray-600">Name</label>
-              <input
-                name="name"
-                type="text"
-                className="input w-full"
-                placeholder="Name"
-                required
-              />
-              <label className="label text-gray-600">Photo</label>
-              <input
-                name="photo"
-                type="text"
-                className="input w-full"
-                placeholder="Photo Url"
-                required
-              />
-              <label className="label text-gray-600">Email</label>
-              <input
-                name="email"
-                type="email"
-                className="input w-full"
-                placeholder="Email"
-                required
-              />
-              <label className="label text-gray-600">Password</label>
-              <div className=" relative">
-                <div className=" flex relative">
-                  <input
-                    id="password"
-                    name="password"
-                    type={paswordShow ? "text" : "password"}
-                    placeholder="Enter your password"
-                    required
-                    className="w-full input px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 outline-none"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setPassworShow(!paswordShow)}
-                    className=" absolute mt-3 right-0 me-2 "
-                  >
-                    {paswordShow ? <FaRegEye /> : <FaRegEyeSlash />}
-                  </button>
-                </div>
-              </div>
 
-              <button className="btn btn-primary mt-4">Create Now</button>
-            </fieldset>
-          </form>
-        </div>
+        <form onSubmit={handleRegister} className="space-y-5">
+          {/* Name */}
+          <div>
+            <label className="text-sm text-slate-300 mb-2 block">Name</label>
+            <input
+              name="name"
+              type="text"
+              placeholder="Enter name"
+              className="w-full px-4 py-3 rounded-xl bg-slate-950/60 border border-slate-800 text-white placeholder:text-slate-500 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 outline-none transition"
+              required
+            />
+          </div>
+
+          {/* Photo */}
+          <div>
+            <label className="text-sm text-slate-300 mb-2 block">
+              Photo URL
+            </label>
+            <input
+              name="photo"
+              type="text"
+              placeholder="Image URL"
+              className="w-full px-4 py-3 rounded-xl bg-slate-950/60 border border-slate-800 text-white placeholder:text-slate-500 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 outline-none transition"
+              required
+            />
+          </div>
+
+          {/* Email */}
+          <div>
+            <label className="text-sm text-slate-300 mb-2 block">Email</label>
+            <input
+              name="email"
+              type="email"
+              placeholder="Email address"
+              className="w-full px-4 py-3 rounded-xl bg-slate-950/60 border border-slate-800 text-white placeholder:text-slate-500 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 outline-none transition"
+              required
+            />
+          </div>
+
+          {/* Password */}
+          <div>
+            <label className="text-sm text-slate-300 mb-2 block">
+              Password
+            </label>
+
+            <div className="relative">
+              <input
+                id="password"
+                name="password"
+                type={paswordShow ? "text" : "password"}
+                placeholder="Enter password"
+                className="w-full px-4 py-3 rounded-xl bg-slate-950/60 border border-slate-800 text-white placeholder:text-slate-500 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 outline-none transition"
+                required
+              />
+
+              <button
+                type="button"
+                onClick={() => setPassworShow(!paswordShow)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-cyan-400 transition"
+              >
+                {paswordShow ? <FaRegEye /> : <FaRegEyeSlash />}
+              </button>
+            </div>
+          </div>
+
+          {/* Button */}
+          <button className="w-full py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold hover:from-cyan-400 hover:to-blue-400 transition shadow-lg shadow-cyan-500/20">
+            Create Now
+          </button>
+        </form>
       </div>
     </div>
   );

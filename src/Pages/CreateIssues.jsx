@@ -87,24 +87,34 @@ const CreateIssues = () => {
   // console.log(submitStatus, issueCount);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-100 to-cyan-50 py-10 px-4">
-      <div className="max-w-4xl mx-auto bg-white border border-slate-200 rounded-3xl shadow-xl p-8">
-        {/* Heading */}
-        <div className="text-center mb-10">
-          <h1 className="text-4xl font-bold text-slate-800">
-            Create New Issue
-          </h1>
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 py-12 px-4">
+      <div className="max-w-4xl mx-auto bg-slate-900/90 border border-slate-800 rounded-[30px] shadow-2xl shadow-cyan-500/5 backdrop-blur-xl overflow-hidden">
+        {/* Top Glow */}
+        <div className="h-1 w-full bg-gradient-to-r from-cyan-400 via-blue-500 to-cyan-400"></div>
 
-          <p className="text-slate-500 mt-3">
-            Report public infrastructure problems in your area
-          </p>
+        <div className="p-6 md:p-10">
+          {/* Heading */}
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 px-4 py-2 rounded-full text-sm font-medium mb-5">
+              Public Infrastructure System
+            </div>
+
+            <h1 className="text-4xl md:text-5xl font-black text-white leading-tight">
+              Create New Issue
+            </h1>
+
+            <p className="text-slate-400 mt-4 max-w-2xl mx-auto leading-relaxed">
+              Report public infrastructure problems in your area and help
+              improve your community faster.
+            </p>
+          </div>
+
+          {/* Form */}
+          <CreateForm
+            handleCreateIssue={handleCreateIssue}
+            submitStatus={submitStatus}
+          ></CreateForm>
         </div>
-
-        {/* Form */}
-        <CreateForm
-          handleCreateIssue={handleCreateIssue}
-          submitStatus={submitStatus}
-        ></CreateForm>
       </div>
     </div>
   );

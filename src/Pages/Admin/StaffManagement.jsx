@@ -149,175 +149,105 @@ const StaffManagement = () => {
   };
   // console.log(staffs);
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-100 to-cyan-50 p-6">
-      {/* Header */}
-      <div className="max-w-7xl mx-auto mb-10">
-        <div className="bg-white rounded-3xl shadow-xl p-8 flex flex-col md:flex-row items-center justify-between gap-6">
-          <div>
-            <h1 className="text-4xl font-extrabold text-gray-800">
-              Staff Management
-            </h1>
-
-            <p className="text-gray-500 mt-2 text-lg">
-              Manage all staff members, roles, and activities.
-            </p>
-          </div>
-
-          <div className="flex items-center gap-4">
-            {/* Total Staff */}
-            <div className="flex items-center gap-4 bg-slate-50 px-6 py-4 rounded-2xl">
-              <div className="bg-cyan-500 text-white p-4 rounded-2xl shadow-lg">
-                <Users size={40} />
-              </div>
-
-              <div>
-                <h2 className="text-3xl font-bold text-gray-800">
-                  {staffs?.length}
-                </h2>
-                <p className="text-gray-500">Total Staff</p>
-              </div>
-            </div>
-
-            {/* Create Staff Button */}
-            <Link
-              to={"/createStaff"}
-              className="bg-cyan-500 hover:bg-cyan-600 text-white px-6 py-4 rounded-2xl font-semibold shadow-lg transition-all duration-300"
-            >
-              + Create Staff
-            </Link>
-          </div>
-        </div>
+    <div className="min-h-screen bg-slate-950 relative overflow-hidden">
+      {/* background glow */}
+      <div className="absolute inset-0">
+        <div className="absolute -top-40 -right-40 w-[500px] h-[500px] bg-cyan-500/10 blur-3xl rounded-full"></div>
+        <div className="absolute -bottom-40 -left-40 w-[500px] h-[500px] bg-blue-500/10 blur-3xl rounded-full"></div>
       </div>
 
-      {/* Staff Cards */}
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
-        {staffs?.map((staff) => (
-          <div
-            key={staff._id}
-            className="bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100"
-          >
-            {/* Cover */}
-            <div className="h-28 bg-gradient-to-r from-cyan-500 to-blue-500"></div>
+      <div className="relative z-10 p-6">
+        {/* Header */}
+        <div className="max-w-7xl mx-auto mb-8">
+          <div className="bg-slate-900/60 border border-slate-800 rounded-2xl shadow-lg p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+            <div>
+              <h1 className="text-3xl font-bold text-white">
+                Staff Management
+              </h1>
+              <p className="text-slate-400 mt-1">
+                Manage all staff members, roles, and activities.
+              </p>
+            </div>
 
-            {/* Profile */}
-            <div className="relative px-6 pb-6">
-              <div className="flex justify-center">
-                <img
-                  src={staff.photoURL}
-                  alt={staff.displayName}
-                  className="w-28 h-28 rounded-full border-4 border-white object-cover -mt-14 shadow-lg"
-                />
+            <div className="flex items-center gap-4">
+              {/* Total Staff */}
+              <div className="flex items-center gap-3 bg-slate-800/60 border border-slate-700 px-5 py-3 rounded-xl">
+                <div className="w-10 h-10 flex items-center justify-center rounded-lg bg-cyan-500 text-white">
+                  <Users size={20} />
+                </div>
+
+                <div>
+                  <h2 className="text-xl font-bold text-white">
+                    {staffs?.length}
+                  </h2>
+                  <p className="text-xs text-slate-400">Total Staff</p>
+                </div>
               </div>
 
-              <div className="text-center mt-4">
-                <h2 className="text-2xl font-bold text-gray-800">
+              {/* Button */}
+              <Link
+                to="/createStaff"
+                className="bg-cyan-500 hover:bg-cyan-400 text-black px-5 py-3 rounded-xl font-semibold transition"
+              >
+                + Create Staff
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        {/* Cards */}
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+          {staffs?.map((staff) => (
+            <div
+              key={staff._id}
+              className="bg-slate-900/60 border border-slate-800 rounded-2xl shadow-lg hover:border-cyan-500/30 transition"
+            >
+              {/* Cover */}
+              <div className="h-20 bg-gradient-to-r from-cyan-500 to-blue-500"></div>
+
+              {/* Content */}
+              <div className="p-5 text-center">
+                <img
+                  src={staff.photoURL}
+                  className="w-20 h-20 rounded-full object-cover mx-auto -mt-10 border-4 border-slate-900 shadow-lg"
+                />
+
+                <h2 className="text-lg font-semibold text-white mt-3">
                   {staff.displayName}
                 </h2>
 
-                <div className="flex items-center justify-center gap-2 text-gray-500 mt-2">
-                  <Mail size={16} />
-                  <p className="text-sm">{staff.email}</p>
-                </div>
+                <p className="text-sm text-slate-400">{staff.email}</p>
 
-                <div className="flex items-center justify-center gap-2 mt-4">
-                  <span className="bg-cyan-100 text-cyan-700 px-4 py-1 rounded-full text-sm font-semibold flex items-center gap-1">
-                    <ShieldCheck size={16} />
-                    {staff.role}
-                  </span>
-                </div>
+                {/* Role */}
+                <span className="inline-block mt-3 px-3 py-1 text-xs rounded-full bg-slate-800 text-slate-300 border border-slate-700">
+                  {staff.role}
+                </span>
 
-                <p className="text-sm text-gray-400 mt-4">
+                <p className="text-xs text-slate-500 mt-3">
                   Joined: {new Date(staff.createdAt).toLocaleDateString()}
                 </p>
+
+                {/* Buttons */}
+                <div className="flex gap-3 mt-5">
+                  <button
+                    onClick={() => staffUpdateOpen(staff._id)}
+                    className="flex-1 bg-cyan-500 hover:bg-cyan-400 text-black py-2 rounded-xl text-sm font-semibold transition"
+                  >
+                    Update
+                  </button>
+
+                  <button
+                    onClick={() => handleStaffDelete(staff._id)}
+                    className="flex-1 bg-red-500 hover:bg-red-600 text-white py-2 rounded-xl text-sm font-semibold transition"
+                  >
+                    Remove
+                  </button>
+                </div>
               </div>
-
-              {/* Buttons */}
-              <div className="grid grid-cols-2 gap-4 mt-6">
-                <button
-                  onClick={() => staffUpdateOpen(staff._id)}
-                  className="bg-cyan-500 hover:bg-cyan-600 text-white py-3 rounded-xl font-semibold transition-all duration-300"
-                >
-                  Update
-                </button>
-
-                <button
-                  onClick={() => handleStaffDelete(staff._id)}
-                  className="bg-red-500 hover:bg-red-600 text-white py-3 rounded-xl font-semibold transition-all duration-300"
-                >
-                  Remove
-                </button>
-              </div>
             </div>
-          </div>
-        ))}
-      </div>
-      {/* update modal */}
-      <dialog id="my_modal_1" className="modal">
-        <div className="modal-box rounded-2xl p-0 overflow-hidden max-w-md bg-white">
-          {/* Header */}
-          <div className="bg-gradient-to-r from-cyan-600 to-blue-600 px-6 py-5">
-            <h3 className="text-white text-xl font-bold">
-              Update Staff Information
-            </h3>
-            <p className="text-white/80 text-sm mt-1">
-              Modify name and profile image
-            </p>
-          </div>
-
-          {/* Body */}
-          <form onSubmit={handleUpdateSubmit} className="p-6 space-y-6">
-            {/* Name Input */}
-            <div>
-              <label className="text-sm font-medium text-gray-700">
-                Full Name
-              </label>
-              <input
-                type="text"
-                name="name"
-                defaultValue={staff?.displayName}
-                placeholder="Enter staff name"
-                className="w-full mt-2 px-4 py-3 border border-gray-200 rounded-xl
-          focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent
-          transition-all duration-200"
-              />
-            </div>
-
-            {/* Image Input */}
-            <div>
-              <label className="text-sm font-medium text-gray-700">
-                Profile Image URL
-              </label>
-              <input
-                type="text"
-                defaultValue={staff?.photoURL}
-                placeholder="Paste image URL"
-                name="img"
-                className="w-full mt-2 px-4 py-3 border border-gray-200 rounded-xl
-          focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent
-          transition-all duration-200"
-              />
-            </div>
-
-            {/* Buttons */}
-            <div className="flex justify-center gap-3 pt-2">
-              <button
-                type="button"
-                onClick={() => document.getElementById("my_modal_1").close()}
-                className=" px-5 py-2.5 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium transition"
-              >
-                Cancel
-              </button>
-
-              <button
-                type="submit"
-                className="px-6 py-2.5 rounded-xl bg-cyan-600 hover:bg-cyan-700 text-white font-semibold shadow-md transition"
-              >
-                Save Changes
-              </button>
-            </div>
-          </form>
+          ))}
         </div>
-      </dialog>
+      </div>
     </div>
   );
 };

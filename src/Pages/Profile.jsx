@@ -4,45 +4,42 @@ import { AuthContext } from "../Provider/AuthContext";
 const Profile = () => {
   const { singleUserdbInfo } = use(AuthContext);
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-slate-100 to-slate-200 flex items-center justify-center px-4 py-10">
-      <div className="relative w-full max-w-5xl rounded-[32px] overflow-hidden shadow-2xl border border-white/40 bg-white/70 backdrop-blur-xl">
-        {/* Background Glow */}
-        <div className="absolute top-0 right-0 w-72 h-72 bg-cyan-400/20 blur-3xl rounded-full"></div>
-        <div className="absolute bottom-0 left-0 w-72 h-72 bg-indigo-400/20 blur-3xl rounded-full"></div>
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 flex items-center justify-center px-4 py-12">
+      <div className="relative w-full max-w-5xl rounded-[32px] overflow-hidden shadow-2xl border border-white/10 bg-slate-900/60 backdrop-blur-2xl">
+        {/* Glow */}
+        <div className="absolute -top-20 -right-20 w-80 h-80 bg-cyan-500/10 blur-3xl rounded-full"></div>
+        <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-indigo-500/10 blur-3xl rounded-full"></div>
 
         <div className="relative z-10 grid md:grid-cols-2">
-          {/* LEFT SIDE */}
-          <div className="bg-gradient-to-br from-cyan-500 via-blue-500 to-indigo-600 p-10 text-white flex flex-col justify-center items-center text-center relative overflow-hidden">
-            {/* Decorative Circle */}
-            <div className="absolute -top-10 -left-10 w-40 h-40 rounded-full bg-white/10"></div>
-            <div className="absolute bottom-0 right-0 w-52 h-52 rounded-full bg-white/10"></div>
+          {/* LEFT */}
+          <div className="bg-gradient-to-br from-cyan-600 via-blue-600 to-indigo-700 p-10 text-white flex flex-col justify-center items-center text-center relative overflow-hidden">
+            <div className="absolute -top-16 -left-16 w-52 h-52 rounded-full bg-white/10"></div>
+            <div className="absolute -bottom-16 -right-16 w-60 h-60 rounded-full bg-white/10"></div>
 
-            {/* Profile */}
             <img
               src={singleUserdbInfo.photoURL}
               alt="profile"
-              className="w-40 h-40 rounded-full border-[6px] border-white shadow-2xl object-cover"
+              className="w-36 h-36 rounded-full border-4 border-white/80 shadow-xl object-cover"
             />
 
-            <h2 className="mt-6 text-4xl font-bold tracking-wide">
+            <h2 className="mt-6 text-3xl font-bold tracking-wide">
               {singleUserdbInfo.displayName}
             </h2>
 
-            <p className="text-cyan-100 mt-2 break-all text-sm">
+            <p className="text-cyan-100 mt-2 text-sm break-all opacity-90">
               {singleUserdbInfo.email}
             </p>
 
-            {/* Status */}
             <div className="mt-6 flex gap-3 flex-wrap justify-center">
-              <span className="px-5 py-2 rounded-full bg-white/20 backdrop-blur-md text-sm font-semibold border border-white/20">
+              <span className="px-4 py-2 rounded-full bg-white/15 backdrop-blur-md text-sm font-medium border border-white/20">
                 👤 {singleUserdbInfo.role}
               </span>
 
               <span
-                className={`px-5 py-2 rounded-full text-sm font-semibold border ${
+                className={`px-4 py-2 rounded-full text-sm font-semibold border backdrop-blur-md ${
                   singleUserdbInfo.status === "blocked"
-                    ? "bg-red-500/20 text-red-100 border-red-300/20"
-                    : "bg-green-500/20 text-green-100 border-green-300/20"
+                    ? "bg-red-500/20 text-red-100 border-red-400/20"
+                    : "bg-emerald-500/20 text-emerald-100 border-emerald-400/20"
                 }`}
               >
                 {singleUserdbInfo.status === "blocked"
@@ -52,73 +49,69 @@ const Profile = () => {
             </div>
           </div>
 
-          {/* RIGHT SIDE */}
-          <div className="p-8 md:p-12 flex flex-col justify-center">
+          {/* RIGHT */}
+          <div className="p-10 md:p-12">
             <div>
-              <h3 className="text-3xl font-bold text-slate-800">
+              <h3 className="text-2xl md:text-3xl font-bold text-white">
                 Account Overview
               </h3>
 
-              <p className="text-slate-500 mt-2">
-                Manage your profile information and account status.
+              <p className="text-slate-400 mt-2">
+                Manage your profile information and account status
               </p>
             </div>
 
-            {/* Info Cards */}
             <div className="mt-8 space-y-5">
-              <div className="bg-slate-50 hover:bg-slate-100 transition rounded-2xl p-5 border border-slate-200">
+              <div className="bg-slate-800/50 border border-slate-700 hover:border-cyan-500/30 transition rounded-2xl p-5">
                 <p className="text-sm text-slate-400">User ID</p>
-                <h4 className="text-lg font-semibold text-slate-700 mt-1">
+                <h4 className="text-lg font-semibold text-white mt-1">
                   #{singleUserdbInfo._id.slice(-8)}
                 </h4>
               </div>
 
-              <div className="bg-slate-50 hover:bg-slate-100 transition rounded-2xl p-5 border border-slate-200">
+              <div className="bg-slate-800/50 border border-slate-700 hover:border-cyan-500/30 transition rounded-2xl p-5">
                 <p className="text-sm text-slate-400">Joined Date</p>
-                <h4 className="text-lg font-semibold text-slate-700 mt-1">
+                <h4 className="text-lg font-semibold text-white mt-1">
                   {new Date(singleUserdbInfo.createdAt).toLocaleDateString()}
                 </h4>
               </div>
 
-              <div className="bg-slate-50 hover:bg-slate-100 transition rounded-2xl p-5 border border-slate-200">
+              <div className="bg-slate-800/50 border border-slate-700 hover:border-cyan-500/30 transition rounded-2xl p-5">
                 <p className="text-sm text-slate-400">Account Status</p>
 
                 <h4
                   className={`text-lg font-bold mt-1 ${
                     singleUserdbInfo.status === "blocked"
-                      ? "text-red-500"
-                      : "text-green-500"
+                      ? "text-red-400"
+                      : "text-emerald-400"
                   }`}
                 >
                   {singleUserdbInfo.status === "blocked"
                     ? "Restricted Access"
-                    : "Everything is working perfectly"}
+                    : "All systems operational"}
                 </h4>
               </div>
             </div>
 
-            {/* Warning */}
             {singleUserdbInfo.status === "blocked" && (
-              <div className="mt-8 bg-red-50 border border-red-200 rounded-2xl p-5">
-                <h4 className="text-red-600 font-bold text-lg">
-                  ⚠️ Account Restricted
+              <div className="mt-8 bg-red-500/10 border border-red-500/20 rounded-2xl p-5">
+                <h4 className="text-red-400 font-bold text-lg">
+                  ⚠ Account Restricted
                 </h4>
 
-                <p className="text-red-500 text-sm mt-2 leading-relaxed">
-                  Your account has been blocked by the admin. You cannot perform
-                  actions like upvoting or interacting with issues until your
-                  account is restored.
+                <p className="text-red-300 text-sm mt-2 leading-relaxed">
+                  Your account has been blocked. Some features are disabled
+                  until admin review.
                 </p>
               </div>
             )}
 
-            {/* Buttons */}
             <div className="mt-8 flex flex-col sm:flex-row gap-4">
-              <button className="flex-1 py-3 rounded-2xl bg-cyan-500 hover:bg-cyan-600 text-white font-semibold shadow-lg transition-all duration-300 hover:scale-[1.02]">
+              <button className="flex-1 py-3 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold shadow-lg hover:scale-[1.02] transition">
                 Edit Profile
               </button>
 
-              <button className="flex-1 py-3 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold transition-all duration-300 hover:scale-[1.02]">
+              <button className="flex-1 py-3 rounded-2xl bg-slate-800 border border-slate-700 text-slate-200 font-semibold hover:bg-slate-700 transition">
                 Logout
               </button>
             </div>
